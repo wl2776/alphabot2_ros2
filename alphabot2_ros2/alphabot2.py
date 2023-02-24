@@ -6,7 +6,7 @@ from geometry_msgs.msg import TwistStamped
 
 import RPi.GPIO as GPIO
 
-from AlphaBot import AlphaBot
+from .AlphaBot import AlphaBot
 
 class AlphaBot2(Node):
     def __init__(self):
@@ -24,11 +24,26 @@ class AlphaBot2(Node):
 
         GPIO.setmode(GPIO.BCM)
         GPIO.setwarnings(False)
-        GPIO.setup(IR,GPIO.IN,GPIO.PUD_UP)
-
+        GPIO.setup(self.IR,GPIO.IN,GPIO.PUD_UP)
+        self.abot.stop()
 
     def process_cmd_vel(self, msg):
-        self.get_logger().info('I heard: "%s"' % msg.data)
+        self.get_logger().info(f'Received {msg}')
+        if msg.twist.linear.x > 0:
+            self.get_logger().info('Forward')
+            self.abot.forward()
+        elif msg.twist.linear.x < 0:
+            self.get_logger().info('Backward')
+            self.abot.backward()
+        elif msg.twist.linear.x == 0:
+            self.get_logger().info('Stop')
+            self.abot.stop()
+        elif msg.twist.angular.x > 0:
+            self.get_logger().info('Left')
+            self.abot.left()
+        elif msg.twist.angular.x < 0:
+            self.get_logger().info('Right')
+            self.abot.right()
 
     def destroy_node(self):
         self.abot.stop()
