@@ -15,11 +15,11 @@ setup(
     zip_safe=True,
     maintainer='wl2776',
     maintainer_email='wl2776@gmail.com',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    description='Alphabot2 ROS2 node',
+    license='BSD-3-Clause',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': [
+        'console_scripts': ['alphabot2 = alphabot2_ros2.alphabot2:main',
         ],
     },
 )
