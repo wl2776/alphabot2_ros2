@@ -19,7 +19,7 @@ setup(
     license='BSD-3-Clause',
     tests_require=['pytest'],
     entry_points={
-        'console_scripts': ['alphabot2 = alphabot2_ros2.alphabot2:main',
+        'console_scripts': ['alphabot2 = alphabot2_ros2.alphabot2_ros2_node:main',
         ],
     },
 )

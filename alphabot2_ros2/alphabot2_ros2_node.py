@@ -6,9 +6,9 @@ from geometry_msgs.msg import TwistStamped
 
 import RPi.GPIO as GPIO
 
-from .AlphaBot import AlphaBot
+from .AlphaBot2 import AlphaBot2
 
-class AlphaBot2(Node):
+class AlphaBot2Node(Node):
     def __init__(self):
         super().__init__('alphabot2')
         self.cmd_vel_sub = self.create_subscription(
@@ -17,15 +17,6 @@ class AlphaBot2(Node):
             self.process_cmd_vel,
             10)
         self.abot = AlphaBot()
-
-        self.IR = 18
-        self.PWM = 50
-        self.n=0
-
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setwarnings(False)
-        GPIO.setup(self.IR,GPIO.IN,GPIO.PUD_UP)
-        self.abot.stop()
 
     def process_cmd_vel(self, msg):
         self.get_logger().info(f'Received {msg}')
@@ -47,14 +38,12 @@ class AlphaBot2(Node):
 
     def destroy_node(self):
         self.abot.stop()
-        GPIO.cleanup()
 
 
 def main(args=None):
     rclpy.init(args=args)
 
-
-    abot2  = AlphaBot2()
+    abot2  = AlphaBot2Node()
 
     rclpy.spin(abot2)
 
@@ -64,3 +53,4 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
+
