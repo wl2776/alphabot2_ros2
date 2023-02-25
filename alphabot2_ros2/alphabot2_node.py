@@ -10,13 +10,11 @@ from .AlphaBot2 import AlphaBot2
 
 class AlphaBot2Node(Node):
     def __init__(self):
-        super().__init__('alphabot2')
-        self.cmd_vel_sub = self.create_subscription(
-            TwistStamped,
-            '/cmd_vel',
-            self.process_cmd_vel,
-            10)
-        self.abot = AlphaBot()
+        super().__init__('bot')
+        self.cmd_vel_sub = self.create_subscription(TwistStamped, '~/cmd_vel',
+                                                    self.process_cmd_vel,
+                                                    10)
+        self.abot = AlphaBot2()
 
     def process_cmd_vel(self, msg):
         self.get_logger().info(f'Received {msg}')

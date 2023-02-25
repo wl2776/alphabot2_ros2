@@ -1,0 +1,5 @@
+/alphabot2/raspicam:
+  ros__parameters:
+    width: 640
+    height: 480
+    format: "YUYV"
